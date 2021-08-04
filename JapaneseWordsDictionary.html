@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>わたしの 実用日本語辞典</title>
+
+<link rel="stylesheet" type="text/css"
+   href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+  <style>
+    body {
+      font-family: "Open Sans","Segoe UI",Verdana,Arial,"UD デジタル 教科書体 NK-R","游ゴシック Medium","Yu Gothic Medium","游ゴシック",YuGothic,"メイリオ",Meiryo,"ヒラギノ角ゴ Pro W3";
+      letter-spacing: 0.02em;
+      background:#ff9800;
+    }
+    .table>tbody>tr>td{padding: 5px 10px;}
+    .table>thead{background: lightcoral;}
+    .table>tbody{background: floralwhite;}
+    label.word{display:inline-block;color:green;}
+    label.mean{display:inline-block;color:orange;}
+    [type=checkbox]{display:none}
+    [type=checkbox]+span{cursor:pointer; opacity:0;}
+    [type=checkbox]:checked+span{cursor:pointer; opacity:1;}
+    a[href=""]{
+      display: none;
+      pointer-events:none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 align="center">語彙力強化のための注目語彙辞典</h2>
+  <div> <button id="change">⇔</button></div>
+  <table id="sample-table" class="table table-bordered table-hover" >
+    <thead>
+      <tr>
+        <th>引用元</th>
+        <th>語句</th>
+        <th>意味</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+</body>
+
+<script src="gendaiSentens.js"></script>
+<script src="otonaGoiryokuAllover.js"></script>
+<script src="usefulJapanese.js"></script>
+<script src="usefulJapanese_2.js"></script>
+
+<script src="gotoTop.js"></script>
+
+<script type="text/javascript">
+  var appearance = 0;
+
+  $("h2").css("cursor","pointer");
+  $("h2").next("div").css("textAlign","right").css("marginBottom","5px");
+  $("#change").css("cursor","pointer");
+  $("#change").click(function(){
+    if(appearance==0){
+      appearance = 1;
+      $(".word").find("input:checkbox").each(function(){$(this).prop("checked",true)});
+      $(".mean").find("input:checkbox").each(function(){$(this).prop("checked",false)});
+    }else{
+      appearance = 0;
+      $(".word").find("input:checkbox").each(function(){$(this).prop("checked",false)});
+      $(".mean").find("input:checkbox").each(function(){$(this).prop("checked",true)});
+    }
+  });
+
+  $(function() {
+    $('#sample-table').DataTable({
+          responsive: true,lengthChange: true,info: false,searching: true,ordering: false,paging: true,
+          pagingType: "full_numbers",
+          lengthMenu: [ 20, 50, 100 ],
+          columnDefs: [
+            { targets: 0, width: "20%" },{ targets: 1, width: "20%" },{ targets: 2, width: "auto" }
+          ],
+          language: {url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Japanese.json"}
+      });
+  })
+</script>
+</html>
